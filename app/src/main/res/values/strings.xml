@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Last.fm.music</string>
+
+    <string name="top_artists_toolbar_title">Top 100 artists</string>
+</resources>

@@ -1,0 +1,2 @@
+rootProject.name='Last.fm.music'
+include ':app'
