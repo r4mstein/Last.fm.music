@@ -1,5 +1,12 @@
 <resources>
+
     <string name="app_name">Last.fm.music</string>
 
     <string name="top_artists_toolbar_title">Top 100 artists</string>
+    <string name="artist_info_toolbar_title">Artist info</string>
+
+    <string name="listeners">listeners:</string>
+    <string name="play_count">play count:</string>
+    <string name="published">published:</string>
+
 </resources>
