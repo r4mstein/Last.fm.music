@@ -1,31 +1,52 @@
 package com.r4mste1n.main
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.r4mste1n.R
+import com.r4mste1n.main.artist_info.ArtistInfoFragment
 import com.r4mste1n.main.top_artists.TopArtistsFragment
+import com.r4mste1n.root.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.error_layout.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override val layout = R.layout.activity_main
+    private lateinit var errorBehavior: BottomSheetBehavior<LinearLayout>
 
-        setSupportActionBar(toolbar as Toolbar)
+    override fun setupUI() {
+        setupToolbar()
+        errorBehavior = BottomSheetBehavior.from(llErrorContainer).apply {
+            state = BottomSheetBehavior.STATE_HIDDEN
+        }
 
         showTopArtistsFragment()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar as Toolbar)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportFragmentManager.addOnBackStackChangedListener {
+            supportActionBar?.setDisplayHomeAsUpEnabled(supportFragmentManager.backStackEntryCount > 0)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     fun showTopArtistsFragment() {
         addFragment(R.id.flRootContainer, TopArtistsFragment.newInstance())
     }
 
-    fun setToolbarTitle(title: String) {
-        supportActionBar?.title = title
+    fun showArtistInfo(artistName: String) {
+        replaceFragmentAndAddToBackStack(
+            R.id.flRootContainer,
+            ArtistInfoFragment.newInstance(artistName)
+        )
     }
 
     fun showProgressBar() {
@@ -36,25 +57,16 @@ class MainActivity : AppCompatActivity() {
         if (pbLoader.visibility == View.VISIBLE) pbLoader.visibility = View.GONE
     }
 
-    private fun addFragment(containerId: Int, fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .add(containerId, fragment)
-            .commit()
+    fun showError(error: String) {
+        if (errorBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+            tvErrorMessage.text = error
+            errorBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
-    private fun replaceFragment(containerId: Int, fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(containerId, fragment)
-            .commit()
-    }
-
-    private fun replaceFragmentAndAddToBackStack(containerId: Int, fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(containerId, fragment)
-            .addToBackStack(null)
-            .commit()
+    fun hideError() {
+        if (errorBehavior.state != BottomSheetBehavior.STATE_HIDDEN) {
+            errorBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
     }
 }
