@@ -5,8 +5,10 @@
     <string name="top_artists_toolbar_title">Top 100 artists</string>
     <string name="artist_info_toolbar_title">Artist info</string>
 
-    <string name="listeners">listeners:</string>
-    <string name="play_count">play count:</string>
-    <string name="published">published:</string>
+    <string name="listeners">listeners: %1$s</string>
+    <string name="play_count">play count: %1$s</string>
+    <string name="published">published: %1$s</string>
+
+    <string name="default_error_message">Something went wrong</string>
 
 </resources>

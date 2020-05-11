@@ -3,7 +3,6 @@ package com.r4mste1n.root.base
 import android.content.Context
 import android.view.View
 import androidx.annotation.CallSuper
-import com.r4mste1n.main.MainActivity
 
 /**
  * Created by Alex Shtain on 25.04.2020.
@@ -22,6 +21,7 @@ abstract class BaseView<P : PresenterContract> : ViewContract {
         context = rootView.context
     }
 
+    @Suppress("UNCHECKED_CAST")
     @CallSuper
     override fun onFinishedInflate(presenter: PresenterContract) {
         this.presenter = (presenter as? P)
@@ -34,13 +34,17 @@ abstract class BaseView<P : PresenterContract> : ViewContract {
     }
 
     override fun showLoader(isShow: Boolean) {
-        (rootView?.context as MainActivity).apply {
+        (context as? BaseActivity)?.apply {
             if (isShow) showProgressBar() else hideProgressBar()
         }
     }
 
-    override fun showError(error: String) {
-        (rootView?.context as MainActivity).showError(error)
+    override fun showError(error: String?) {
+        (context as? BaseActivity)?.showError(error)
+    }
+
+    override fun hideError() {
+        (context as? BaseActivity)?.hideError()
     }
 
 }

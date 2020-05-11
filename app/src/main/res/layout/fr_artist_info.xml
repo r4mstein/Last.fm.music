@@ -62,7 +62,7 @@
         </HorizontalScrollView>
 
         <TextView
-            android:id="@+id/tvListenersCount"
+            android:id="@+id/tvHearersCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/hsvTags"
@@ -82,7 +82,7 @@
             android:id="@+id/tvPlayCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvListenersCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvHearersCount"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginStart="16dp"

@@ -11,6 +11,7 @@ abstract class BasePresenter<V : ViewContract> : PresenterContract {
     protected var view: V? = null
     protected var bundle: Bundle? = null
 
+    @Suppress("UNCHECKED_CAST")
     @CallSuper
     override fun setContractView(view: ViewContract) {
         this.view = view as? V
@@ -33,8 +34,9 @@ abstract class BasePresenter<V : ViewContract> : PresenterContract {
 
     }
 
+    @CallSuper
     override fun onStop() {
-
+        view?.hideError()
     }
 
     override fun setBundleData(bundle: Bundle?) {
