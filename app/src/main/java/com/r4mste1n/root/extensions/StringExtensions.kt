@@ -7,6 +7,6 @@ import java.text.DecimalFormatSymbols
  * Created by Alex Shtain on 24.04.2020.
  */
 
-fun String?.formatListeners(): String = DecimalFormat("#,###", DecimalFormatSymbols().apply {
+fun String?.formatCount(): String = DecimalFormat("#,###", DecimalFormatSymbols().apply {
     groupingSeparator = ' '
 }).format(this?.toLong() ?: 0L)

@@ -10,7 +10,7 @@ import com.r4mste1n.root.base.BaseActivity
 import com.r4mste1n.root.base.BaseView
 import com.r4mste1n.root.extensions.ImageTransformType
 import com.r4mste1n.root.extensions.convertDpToPix
-import com.r4mste1n.root.extensions.formatListeners
+import com.r4mste1n.root.extensions.formatCount
 import com.r4mste1n.root.extensions.loadImage
 import kotlinx.android.synthetic.main.fr_artist_info.view.*
 
@@ -21,7 +21,9 @@ import kotlinx.android.synthetic.main.fr_artist_info.view.*
 class ArtistInfoView : BaseView<Contract.Presenter>(), Contract.View {
 
     override fun setupUI() {
-        (context as BaseActivity).setToolbarTitle(context?.getString(R.string.artist_info_toolbar_title) ?: "")
+        (context as BaseActivity).setToolbarTitle(
+            context?.getString(R.string.artist_info_toolbar_title) ?: ""
+        )
     }
 
     override fun setArtistPhoto(link: String) {
@@ -47,19 +49,24 @@ class ArtistInfoView : BaseView<Contract.Presenter>(), Contract.View {
             textSize = 16f
             typeface = ResourcesCompat.getFont(context, R.font.firasans_regular)
             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                setMargins(context.convertDpToPix(4).toInt(), 0, context.convertDpToPix(4).toInt(), 0)
+                setMargins(
+                    context.convertDpToPix(4).toInt(),
+                    0,
+                    context.convertDpToPix(4).toInt(),
+                    0
+                )
             }
         }
     }
 
-    override fun setListenersCount(count: String) {
-        rootView?.tvListenersCount?.text =
-            String.format("${context?.resources?.getString(R.string.listeners)} ${count.formatListeners()}")
+    override fun setHearersCount(count: String) {
+        rootView?.tvHearersCount?.text =
+            context?.resources?.getString(R.string.listeners, count.formatCount())
     }
 
     override fun setPlayCount(count: String) {
         rootView?.tvPlayCount?.text =
-            String.format("${context?.resources?.getString(R.string.play_count)} ${count.formatListeners()}")
+            context?.resources?.getString(R.string.play_count, count.formatCount())
     }
 
     override fun setBio(bio: String) {
@@ -67,8 +74,7 @@ class ArtistInfoView : BaseView<Contract.Presenter>(), Contract.View {
     }
 
     override fun setBioPublished(date: String) {
-        rootView?.tvPublished?.text =
-            String.format("${context?.resources?.getString(R.string.published)} $date")
+        rootView?.tvPublished?.text = context?.resources?.getString(R.string.published, date)
     }
 
 }

@@ -23,6 +23,14 @@ abstract class BaseActivity : AppCompatActivity() {
         supportActionBar?.title = title
     }
 
+    abstract fun showProgressBar()
+
+    abstract fun hideProgressBar()
+
+    abstract fun showError(error: String?)
+
+    abstract fun hideError()
+
     protected fun addFragment(containerId: Int, fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()

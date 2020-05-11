@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.r4mste1n.R
 import com.r4mste1n.root.extensions.ImageTransformType
-import com.r4mste1n.root.extensions.formatListeners
+import com.r4mste1n.root.extensions.formatCount
 import com.r4mste1n.root.extensions.loadImage
 import kotlinx.android.synthetic.main.top_artist_item.view.*
 
@@ -45,8 +45,12 @@ class Adapter(private val clickListener: (item: AdapterData) -> Unit) :
         fun bind(data: AdapterData) {
             itemView.apply {
                 tvName.text = data.name
-                tvListenersCount.text = String.format("${context.resources.getString(R.string.listeners)} ${data.listenersCount.formatListeners()}")
-                ivPhoto.loadImage(url = data.photoUrl ?: "", transformType = ImageTransformType.CenterCrop)
+                tvHearersCount.text =
+                    context.resources.getString(R.string.listeners, data.hearersCount.formatCount())
+                ivPhoto.loadImage(
+                    url = data.photoUrl ?: "",
+                    transformType = ImageTransformType.CenterCrop
+                )
             }
         }
     }

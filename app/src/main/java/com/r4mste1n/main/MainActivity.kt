@@ -49,22 +49,22 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    fun showProgressBar() {
+    override fun showProgressBar() {
         if (pbLoader.visibility == View.GONE) pbLoader.visibility = View.VISIBLE
     }
 
-    fun hideProgressBar() {
+    override fun hideProgressBar() {
         if (pbLoader.visibility == View.VISIBLE) pbLoader.visibility = View.GONE
     }
 
-    fun showError(error: String) {
+    override fun showError(error: String?) {
         if (errorBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-            tvErrorMessage.text = error
+            tvErrorMessage.text = error ?: getString(R.string.default_error_message)
             errorBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
 
-    fun hideError() {
+    override fun hideError() {
         if (errorBehavior.state != BottomSheetBehavior.STATE_HIDDEN) {
             errorBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }

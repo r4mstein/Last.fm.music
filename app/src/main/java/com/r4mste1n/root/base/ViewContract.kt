@@ -15,6 +15,8 @@ interface ViewContract {
 
     fun showLoader(isShow: Boolean)
 
-    fun showError(error: String)
+    fun showError(error: String?)
+
+    fun hideError()
 
 }

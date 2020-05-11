@@ -7,7 +7,7 @@ data class UiData(
     val artistPhoto: String,
     val artistName: String,
     val artistTags: List<String>,
-    val listenersCount: String,
+    val hearersCount: String,
     val playCount: String,
     val bio: String,
     val bioPublished: String

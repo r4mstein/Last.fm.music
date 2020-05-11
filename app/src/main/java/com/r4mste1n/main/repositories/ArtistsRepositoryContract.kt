@@ -3,21 +3,18 @@ package com.r4mste1n.main.repositories
 import com.r4mste1n.main.artist_info.models.ArtistInfoResponse
 import com.r4mste1n.main.top_artists.models.TopArtistsResponse
 import com.r4mste1n.root.network.Result
-import kotlinx.coroutines.Job
 
 /**
  * Created by Alex Shtain on 18.04.2020.
  */
 interface ArtistsRepositoryContract {
 
-    fun loadTopArtists(
-        parentJob: Job,
+    suspend fun loadTopArtists(
         listener: (Result<TopArtistsResponse>) -> Unit
     )
 
-    fun loadArtistInfo(
+    suspend fun loadArtistInfo(
         artistName: String,
-        parentJob: Job,
         listener: (Result<ArtistInfoResponse>) -> Unit
     )
 

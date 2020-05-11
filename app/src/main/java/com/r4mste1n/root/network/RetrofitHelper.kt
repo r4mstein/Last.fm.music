@@ -1,6 +1,7 @@
 package com.r4mste1n.root.network
 
 import com.google.gson.GsonBuilder
+import com.r4mste1n.root.network.NetworkConstants.API_VERSION
 import com.r4mste1n.root.network.NetworkConstants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,7 +21,7 @@ object RetrofitHelper {
     private fun getRetrofit(builder: OkHttpClient.Builder) = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         .client(builder.build())
-        .baseUrl(BASE_URL)
+        .baseUrl(BASE_URL + API_VERSION)
         .build()
 
     private fun getOkHttpBuilder(level: HttpLoggingInterceptor.Level) = OkHttpClient.Builder()

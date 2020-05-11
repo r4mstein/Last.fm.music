@@ -5,6 +5,6 @@ package com.r4mste1n.main.top_artists.adapter
  */
 data class AdapterData(
     val name: String?,
-    val listenersCount: String?,
+    val hearersCount: String?,
     val photoUrl: String?
 )

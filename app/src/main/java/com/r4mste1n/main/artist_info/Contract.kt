@@ -16,7 +16,7 @@ interface Contract {
 
         fun setArtistTags(tags: List<String>)
 
-        fun setListenersCount(count: String)
+        fun setHearersCount(count: String)
 
         fun setPlayCount(count: String)
 

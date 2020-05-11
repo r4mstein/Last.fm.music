@@ -10,8 +10,6 @@ object NetworkConstants {
     const val BASE_URL = "https://ws.audioscrobbler.com/"
     const val API_VERSION = "2.0/"
 
-    const val DEFAULT_ERROR_MESSAGE = "Something went wrong"
-
     const val RESPONSE_FORMAT = "json"
-    const val QUERY_METHOD = "method"
+
 }

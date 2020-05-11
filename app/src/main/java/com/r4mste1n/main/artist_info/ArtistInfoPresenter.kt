@@ -6,8 +6,7 @@ import com.r4mste1n.main.artist_info.models.UiData
 import com.r4mste1n.main.repositories.ArtistsRepositoryContract
 import com.r4mste1n.root.base.BasePresenter
 import com.r4mste1n.root.network.Result
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.*
 
 /**
  * Created by Alex Shtain on 25.04.2020.
@@ -17,38 +16,42 @@ class ArtistInfoPresenter(
 ) : BasePresenter<Contract.View>(), Contract.Presenter {
 
     private val parentJob: Job = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     override fun onViewCreated() {
         loadArtistInfo()
     }
 
     override fun onStop() {
+        super.onStop()
         parentJob.cancelChildren()
     }
 
     private fun loadArtistInfo() {
         view?.showLoader(true)
 
-        repository.loadArtistInfo(bundle?.getString(ARTIST_NAME_KEY) ?: "", parentJob) { result ->
-            when (result) {
-                is Result.Success -> {
-                    view?.apply {
-                        val uiData = convertLoadedDataToUiData(result.data.artist)
+        coroutineScope.launch {
+            repository.loadArtistInfo(bundle?.getString(ARTIST_NAME_KEY) ?: "") { result ->
+                when (result) {
+                    is Result.Success -> {
+                        view?.apply {
+                            val uiData = convertLoadedDataToUiData(result.data.artist)
 
-                        setArtistPhoto(uiData.artistPhoto)
-                        setArtistName(uiData.artistName)
-                        setArtistTags(uiData.artistTags)
-                        setListenersCount(uiData.listenersCount)
-                        setPlayCount(uiData.playCount)
-                        setBio(uiData.bio)
-                        setBioPublished(uiData.bioPublished)
+                            setArtistPhoto(uiData.artistPhoto)
+                            setArtistName(uiData.artistName)
+                            setArtistTags(uiData.artistTags)
+                            setHearersCount(uiData.hearersCount)
+                            setPlayCount(uiData.playCount)
+                            setBio(uiData.bio)
+                            setBioPublished(uiData.bioPublished)
 
-                        showLoader(false)
+                            showLoader(false)
+                        }
                     }
-                }
-                is Result.Error -> {
-                    view?.showLoader(false)
-                    view?.showError(result.message)
+                    is Result.Error -> {
+                        view?.showLoader(false)
+                        view?.showError(result.message)
+                    }
                 }
             }
         }
@@ -66,7 +69,7 @@ class ArtistInfoPresenter(
 
             uiTags
         } ?: emptyList(),
-        listenersCount = artist?.stats?.listeners ?: "",
+        hearersCount = artist?.stats?.listeners ?: "",
         playCount = artist?.stats?.playcount ?: "",
         bio = artist?.bio?.content ?: "",
         bioPublished = artist?.bio?.published ?: ""
